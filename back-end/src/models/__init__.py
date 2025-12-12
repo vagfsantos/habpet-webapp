@@ -1,4 +1,4 @@
-from .test_table import TestTable
+from .user import User
 
 
-__all__ = ['TestTable']
+__all__ = ['User']
