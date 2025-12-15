@@ -4,7 +4,7 @@ from src.mixins.timestamp import TimeStampMixin
 from marshmallow import Schema, fields, validate
 
 
-class User(TimeStampMixin, db.Model):
+class Users(TimeStampMixin, db.Model):
   id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
   slug = db.Column(db.Uuid, nullable=False, unique=True, default=uuid.uuid4)
   name = db.Column(db.String(100), nullable=False)

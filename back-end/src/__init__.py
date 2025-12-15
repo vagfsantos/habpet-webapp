@@ -13,7 +13,7 @@ def create_app():
   
   setup_database_connection(app)
   
-  from src.routes.user import users_blueprint
+  from src.routes.users import users_blueprint
   
   base_blueprint.register_blueprint(users_blueprint, url_prefix='/users')
   base_blueprint.register_blueprint(login_blueprint, url_prefix='/auth')

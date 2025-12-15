@@ -3,7 +3,7 @@ import bcrypt
 from flask import Blueprint, request
 from marshmallow import ValidationError
 
-from src.config.db_config import db, alembic
+from src.config.db_config import db
 from src.models.users import UserSchema
 
 users_blueprint = Blueprint('users', __name__)
@@ -54,9 +54,3 @@ def create_user():
   created_user = db.session.query(Users).filter_by(email=user["email"]).one()
   
   return { "slug": created_user.slug }, 201
-
-
-@users_blueprint.route('/migrate', methods=['GET'])
-def migrate():
-  alembic.upgrade()
-  return {"message": "Migrated"}
