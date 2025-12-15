@@ -3,16 +3,16 @@ import bcrypt
 from flask import Blueprint, request
 from marshmallow import ValidationError
 
-from src.config.db_config import db
-from src.models.user import UserSchema
+from src.config.db_config import db, alembic
+from src.models.users import UserSchema
 
 users_blueprint = Blueprint('users', __name__)
 
 @users_blueprint.route('/', methods=['GET'])
 def list_users():
-  from src.models.user import User
+  from src.models.users import Users
   
-  data = User.query.all()
+  data = Users.query.all()
 
   all_data = []
   for row in data:
@@ -27,7 +27,7 @@ def get_encrypted_password(password):
 
 @users_blueprint.route('/', methods=['POST'])
 def create_user():
-  from src.models.user import User
+  from src.models.users import Users
   
   data = request.get_json()
 
@@ -38,11 +38,11 @@ def create_user():
   except ValidationError as err:
     return err.messages, 422
   
-  existing_user = db.session.query(User).filter_by(email=user["email"]).one_or_none()
+  existing_user = db.session.query(Users).filter_by(email=user["email"]).one_or_none()
   if existing_user:
     return {"message": "E-mail already taken"}, 422
   
-  new_user = User()
+  new_user = Users()
   new_user.name = user["name"]
   new_user.email = user["email"]
   new_user.password_hash = get_encrypted_password(user["password"])
@@ -51,6 +51,12 @@ def create_user():
   db.session.commit()
   db.session.close()
   
-  created_user = db.session.query(User).filter_by(email=user["email"]).one()
+  created_user = db.session.query(Users).filter_by(email=user["email"]).one()
   
   return { "slug": created_user.slug }, 201
+
+
+@users_blueprint.route('/migrate', methods=['GET'])
+def migrate():
+  alembic.upgrade()
+  return {"message": "Migrated"}
