@@ -20,7 +20,11 @@ python -m venv venv
 
 Active the virtual machine
 ```
+// Mac or linux
 source venv/bin/activate
+
+// windows bash:
+source venv/Scripts/activate
 ```
 
 Now install dependencies
@@ -63,7 +67,7 @@ DB_PORT="3306" # db port
 1. Make sure SQL server is up
 2. Now run migrations
 ```
-flask db upgrade
+FLASK_APP=main.py flask db upgrade
 ```
 
 ### Run the project

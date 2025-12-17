@@ -1,3 +1,4 @@
+import os
 from flask_sqlalchemy import SQLAlchemy
 from google.cloud.sql.connector import Connector
 from flask_alembic import Alembic
@@ -7,7 +8,7 @@ alembic = Alembic()
 
 def setup_database_connection(app):
   with app.app_context():
-    if app.config.get("ENV") == "production":
+    if os.getenv('APP_ENV', 'dev') == "production":
       connector = Connector()
       app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
         "creator": lambda: connector.connect(
@@ -22,3 +23,6 @@ def setup_database_connection(app):
   
     db.init_app(app)
     alembic.init_app(app)
+    
+    if alembic.needs_upgrade():
+      alembic.upgrade()
