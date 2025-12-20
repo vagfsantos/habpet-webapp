@@ -1,8 +1,10 @@
 import styled from "styled-components";
+import { COLORS } from "./Colors";
+import { FONTS } from "./Fonts";
 
 export const SubTitle = styled.span`
-  color: #083245;
-  font-family: "Lato", sans-serif;
+  color: ${COLORS.BLUE_EXTRA_BOLD};
+  font-family: ${FONTS.LATO};
   font-size: 16px;
   font-weight: 400;
 `;

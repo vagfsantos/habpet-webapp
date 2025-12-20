@@ -1,4 +1,4 @@
-import LogoSvg from '../../assets/svg/logo-habpet-main.svg?react';
+import LogoSvg from '@/assets/svg/logo-habpet-main.svg?react';
 
 export const Logo = ({ width, height }) => {
   return (
