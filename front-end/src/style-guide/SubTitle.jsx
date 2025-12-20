@@ -7,4 +7,5 @@ export const SubTitle = styled.span`
   font-family: ${FONTS.LATO};
   font-size: 16px;
   font-weight: 400;
+  line-height: auto;
 `;

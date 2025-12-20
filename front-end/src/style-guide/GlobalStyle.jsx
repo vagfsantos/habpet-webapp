@@ -12,6 +12,6 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: ${FONTS.DEFALT};
+    font-family: ${FONTS.DEFAULT};
   }
 `;
