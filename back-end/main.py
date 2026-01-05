@@ -1,10 +1,15 @@
-from flask import Flask
+from src import create_app
 
-app = Flask(__name__)
+app = create_app()
 
-@app.route('/')
-def hello_world():
-    return 'Hello World!'
 
-if __name__ == '__main__':
-    app.run(debug=True, port=4000)
+if __name__ == "__main__":
+    # This is used when running locally only. When deploying to Google App
+    # Engine, a webserver process such as Gunicorn will serve the src. This
+    # can be configured by adding an `entrypoint` to src.yaml.
+    # Flask's development server will automatically serve static files in
+    # the "static" directory. See:
+    # http://flask.pocoo.org/docs/1.0/quickstart/#static-files. Once deployed,
+    # App Engine itself will serve those files as configured in src.yaml.
+    app.run(host="127.0.0.1", port=4000, debug=True)
+
