@@ -1,16 +1,17 @@
 import uuid
 from src.config.db_config import db
-from src.mixins.timestamp import TimeStampMixin
+from src.mixins.base_model import BaseModel
 from marshmallow import Schema, fields, validate
 
 
-class Users(TimeStampMixin, db.Model):
+class Users(BaseModel):
+  __tablename__ = 'users'
+  
   id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
   slug = db.Column(db.Uuid, nullable=False, unique=True, default=uuid.uuid4)
   name = db.Column(db.String(100), nullable=False)
   email = db.Column(db.String(120), nullable=False, unique=True)
   password_hash = db.Column(db.String(255), nullable=False)
-  
 
 class UserSchema(Schema):
   id = fields.Int()
