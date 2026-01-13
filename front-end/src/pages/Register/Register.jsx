@@ -42,7 +42,7 @@ export const Register = () => {
               <Box mb={"21px"}>
                 <Stack direction={'column'}>
                   <Box pl={'12px'}>
-                    <Label for="name">Name*</Label>
+                    <Label htmlFor="name">Name*</Label>
                   </Box>
                   <Input type="text" placeholder="Your name..." id="name" name="name" />
                 </Stack>
@@ -51,7 +51,7 @@ export const Register = () => {
               <Box mb={"21px"}>
                 <Stack direction="column">
                   <Box pl="12px">
-                    <Label for="email">E-mail</Label>
+                    <Label htmlFor="email">E-mail</Label>
                   </Box>
                   <Input type="text" placeholder="Youremail@email.com" id="email" name="email" />
                 </Stack>
@@ -60,7 +60,7 @@ export const Register = () => {
               <Box>
                 <Stack direction="column">
                   <Box pl="12px">
-                    <Label for="Password">Password</Label>
+                    <Label htmlFor="Password">Password</Label>
                   </Box>
                   <Input type="password" placeholder="*******" id="Password" name="Password" />
                 </Stack>
