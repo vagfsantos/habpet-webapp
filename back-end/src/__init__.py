@@ -6,7 +6,7 @@ from src.models import *
 from src.routes import base_blueprint
 from src.routes.login import login_blueprint
 from flask_jwt_extended import JWTManager
-
+from flask_cors import CORS
 
 def create_app():
   app = Flask(__name__)
@@ -14,6 +14,7 @@ def create_app():
   
   setup_database_connection(app)
   JWTManager(app)
+  CORS(app)
   
   from src.routes.users import users_blueprint
   
