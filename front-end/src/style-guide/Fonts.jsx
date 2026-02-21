@@ -1,4 +1,4 @@
 export const FONTS = {
-  DEFAULT: '"Baloo Bhaijaan 2", sans- serif',
-  LATO: '"Lato", sans-serif'
+  SECONDARY: '"Baloo Bhaijaan 2", sans- serif',
+  DEFAULT: '"Lato", sans-serif'
 }

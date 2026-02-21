@@ -8,4 +8,5 @@ export const Label = styled.label`
   color: ${COLORS.BLUE_EXTRA_BOLD};
   font-size: 14px;
   font-weight: 700;
+  display: block;
 `;
