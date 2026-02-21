@@ -30,32 +30,34 @@ export const Login = () => {
         </Box>
 
         <Card>
-          <Title>Welcome</Title>
-          <Box width="52%" lineHeight="1">
-            <SubTitle>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            </SubTitle>
-          </Box>
-
-          <Form>
-            <Box mb="21px">
-              <Stack direction="column">
-                <Box pl="12px">
-                  <Label for="email">E-mail</Label>
-                </Box>
-                <Input type="text" placeholder="Youremail@email.com" id="email" name="email" />
-              </Stack>
+          <Stack flexDirection={"column"} alignItems={"center"}>
+            <Title>Welcome</Title>
+            <Box width="52%">
+              <SubTitle>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              </SubTitle>
             </Box>
 
-            <Stack direction="column">
-              <Box pl="12px">
-                <Label for="Password">Password</Label>
+            <Form>
+              <Box mb="21px">
+                <Stack direction="column">
+                  <Box pl="12px">
+                    <Label for="email">E-mail</Label>
+                  </Box>
+                  <Input type="text" placeholder="Youremail@email.com" id="email" name="email" />
+                </Stack>
               </Box>
-              <Input type="password" placeholder="******" id="Password" name="Password" />
-            </Stack>
+
+              <Stack direction="column">
+                <Box pl="12px">
+                  <Label for="Password">Password</Label>
+                </Box>
+                <Input type="password" placeholder="******" id="Password" name="Password" />
+              </Stack>
 
 
-          </Form>
+            </Form>
+          </Stack>
         </Card>
         <Box mt="-20px">
           <Stack direction="row" justifyContent="center">

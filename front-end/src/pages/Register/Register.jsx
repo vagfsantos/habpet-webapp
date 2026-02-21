@@ -32,7 +32,7 @@ export const Register = () => {
         <Card>
           <Stack flexDirection={"column"} alignItems={"center"}>
             <Title>Sign in</Title>
-            <Box width={'52%'} lineHeight={'1'}>
+            <Box width={'52%'}>
               <SubTitle>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
               </SubTitle>
