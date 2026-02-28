@@ -39,6 +39,7 @@ def authenticate():
   if is_credentials_correct(credentials["password"], user.password_hash):
     encoded_jwt = jwt.encode(
       {
+        "sub": user.get_slug(),
         "user_slug": user.get_slug(),
         "iat": datetime.now(timezone.utc),
         "exp": datetime.now(timezone.utc) + timedelta(minutes=30)
