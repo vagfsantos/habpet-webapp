@@ -11,8 +11,22 @@ import { Link } from "@/style-guide/Link";
 import { COLORS } from "@/style-guide/Colors";
 import { Text } from "@/style-guide/Text";
 import { ROUTES } from "@/Routes";
+import { useEffect } from "react";
+import { GET_USERS } from "@/services/Users";
 
 export const Login = () => {
+
+  const handleGET = async () => {
+    const payload = {
+      "name": "Caçula",
+      "email": "cacula@email.com",
+      "password": "123456"
+    };
+
+    const data = await GET_USERS(payload);
+    console.log(data)
+  }
+
   return (
     <Box
       position="absolute"
@@ -61,7 +75,7 @@ export const Login = () => {
         </Card>
         <Box mt="-20px">
           <Stack direction="row" justifyContent="center">
-            <Button $borderRadius="37px" $width="163px" $height="43px">Sign In</Button>
+            <Button $borderRadius="37px" $width="163px" $height="43px" onClick={() => handleGET()}>Sign In</Button>
           </Stack>
         </Box>
         <Box mt="20px" mb="5px">
