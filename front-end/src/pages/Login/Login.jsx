@@ -11,22 +11,8 @@ import { Link } from "@/style-guide/Link";
 import { COLORS } from "@/style-guide/Colors";
 import { Text } from "@/style-guide/Text";
 import { ROUTES } from "@/Routes";
-import { useEffect } from "react";
-import { GET_USERS } from "@/services/Users";
 
 export const Login = () => {
-
-  const handleGET = async () => {
-    const payload = {
-      "name": "Caçula",
-      "email": "cacula@email.com",
-      "password": "123456"
-    };
-
-    const data = await GET_USERS(payload);
-    console.log(data)
-  }
-
   return (
     <Box
       position="absolute"
