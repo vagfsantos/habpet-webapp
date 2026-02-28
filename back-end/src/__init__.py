@@ -4,6 +4,7 @@ from src.config.db_config import setup_database_connection
 from src.config.env_config import setup_env_vars
 from src.models import *
 from src.routes import base_blueprint
+from src.routes.habits import habits_blueprint
 from src.routes.login import login_blueprint
 from flask_jwt_extended import JWTManager
 from flask_cors import CORS
@@ -20,6 +21,7 @@ def create_app():
   
   base_blueprint.register_blueprint(users_blueprint, url_prefix='/users')
   base_blueprint.register_blueprint(login_blueprint, url_prefix='/auth')
+  base_blueprint.register_blueprint(habits_blueprint, url_prefix='/habits')
   
   app.register_blueprint(base_blueprint, url_prefix='/api')
 
