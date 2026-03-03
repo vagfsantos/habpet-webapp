@@ -11,7 +11,7 @@ import { Title } from "@/style-guide/Title";
 import { Text } from "@/style-guide/Text";
 import { Box, Stack } from "@mui/system";
 import { Link } from "@/style-guide/Link";
-import { REGISTER_USERS } from "@/services/Users";
+import { postRegisterUser } from "@/services/Users";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { toast, ToastContainer } from "react-toastify";
@@ -35,7 +35,7 @@ export const Register = () => {
         email: data.email,
         password: data.password
       }
-      await REGISTER_USERS(dataUser);
+      await postRegisterUser(dataUser);
       toast.success('User create succesfully!', {
         icon: <span>🙌</span>
       });
@@ -43,7 +43,7 @@ export const Register = () => {
 
     } catch (error) {
       console.log("ERROR", error);
-       toast.error('Error creating account.', {
+      toast.error('Error creating account.', {
         icon: <span>😢</span>
       });
     }
@@ -75,7 +75,7 @@ export const Register = () => {
               </SubTitle>
             </Box>
 
-            <Form id="form-id">
+            <Form id="register-form">
               <Box mb={"21px"}>
                 <Stack direction={'column'}>
                   <Box pl={'12px'}>
@@ -128,13 +128,14 @@ export const Register = () => {
         </Card>
 
         <Box mt={'-20px'}>
-          <Stack direction={"row"} justifyContent={"center"}>
+          <Stack
+            direction={"row"}
+            justifyContent={"center"}
+            width="163px"
+          >
             <Button
-              form="form-id"
+              form="register-form"
               type="submit"
-              $borderRadius="37px"
-              $width="163px"
-              $height="43px"
               onClick={() => handleRegisterUsers(event, { name, email, password })}
             >
               Create

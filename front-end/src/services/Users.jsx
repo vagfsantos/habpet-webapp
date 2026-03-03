@@ -1,6 +1,7 @@
 import { API } from "./api"
+import { ENDPOINTS } from "./Endpoints";
 
-export const REGISTER_USERS = async (payload) => {
-  const response = await API.post('/users/', payload);
+export const postRegisterUser = async (payload) => {
+  const response = await API.post(`${ENDPOINTS.USERS}`, payload);
   return response.data;
 }
