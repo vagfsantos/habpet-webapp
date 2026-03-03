@@ -11,8 +11,45 @@ import { Title } from "@/style-guide/Title";
 import { Text } from "@/style-guide/Text";
 import { Box, Stack } from "@mui/system";
 import { Link } from "@/style-guide/Link";
+import { postRegisterUser } from "@/services/Users";
+import { useState } from "react";
+import { useNavigate } from "react-router";
+import { toast, ToastContainer } from "react-toastify";
 
 export const Register = () => {
+
+  const navigate = useNavigate();
+
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+
+
+  const handleRegisterUsers = async (e, data) => {
+    e.preventDefault();
+
+    try {
+      const dataUser = {
+        name: data.name,
+        email: data.email,
+        password: data.password
+      }
+      await postRegisterUser(dataUser);
+      toast.success('User create succesfully!', {
+        icon: <span>🙌</span>
+      });
+      navigate('/login');
+
+    } catch (error) {
+      console.log("ERROR", error);
+      toast.error('Error creating account.', {
+        icon: <span>😢</span>
+      });
+    }
+
+  }
+
   return (
     <Box
       position="absolute"
@@ -38,13 +75,20 @@ export const Register = () => {
               </SubTitle>
             </Box>
 
-            <Form>
+            <Form id="register-form">
               <Box mb={"21px"}>
                 <Stack direction={'column'}>
                   <Box pl={'12px'}>
                     <Label htmlFor="name">Name*</Label>
                   </Box>
-                  <Input type="text" placeholder="Your name..." id="name" name="name" />
+                  <Input
+                    type="text"
+                    placeholder="Your name..."
+                    id="name"
+                    name="name"
+                    value={name}
+                    onChange={(e) => { setName(e.target.value) }}
+                  />
                 </Stack>
               </Box>
 
@@ -53,7 +97,14 @@ export const Register = () => {
                   <Box pl="12px">
                     <Label htmlFor="email">E-mail</Label>
                   </Box>
-                  <Input type="text" placeholder="Youremail@email.com" id="email" name="email" />
+                  <Input
+                    type="text"
+                    placeholder="Youremail@email.com"
+                    id="email"
+                    name="email"
+                    value={email}
+                    onChange={(e) => { setEmail(e.target.value) }}
+                  />
                 </Stack>
               </Box>
 
@@ -62,7 +113,14 @@ export const Register = () => {
                   <Box pl="12px">
                     <Label htmlFor="Password">Password</Label>
                   </Box>
-                  <Input type="password" placeholder="*******" id="Password" name="Password" />
+                  <Input
+                    type="password"
+                    placeholder="*******"
+                    id="Password"
+                    name="Password"
+                    valeu={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
                 </Stack>
               </Box>
             </Form>
@@ -70,8 +128,16 @@ export const Register = () => {
         </Card>
 
         <Box mt={'-20px'}>
-          <Stack direction={"row"} justifyContent={"center"}>
-            <Button $borderRadius="37px" $width="163px" $height="43px">
+          <Stack
+            direction={"row"}
+            justifyContent={"center"}
+            width="163px"
+          >
+            <Button
+              form="register-form"
+              type="submit"
+              onClick={() => handleRegisterUsers(event, { name, email, password })}
+            >
               Create
             </Button>
           </Stack>
@@ -91,7 +157,7 @@ export const Register = () => {
           Login
         </Link>
       </Stack>
-
+      <ToastContainer />
     </Box >
   );
 }
