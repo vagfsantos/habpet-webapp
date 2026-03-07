@@ -1,12 +1,9 @@
-import { NavLink } from "react-router";
-import { ROUTES } from '@/Routes'
+import { DashBoardEmpty } from "../DashboardEmpty/DashboardEmpty";
+import { DashboardPet } from "../DashboardPet/DashboardPet";
 
 export const Home = () => {
   return (
-    <>
-      <NavLink to={ROUTES.LOGIN}>
-        Login
-      </NavLink>
-    </>
+  //  <DashboardPet />
+  <DashBoardEmpty />
   );
 }
