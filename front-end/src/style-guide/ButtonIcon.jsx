@@ -2,16 +2,19 @@ import styled from "styled-components";
 import { COLORS } from "./Colors";
 import { FONTS } from "./Fonts";
 
-export const Button = styled.button` 
+export const ButtonIcon = styled.button` 
   background:${COLORS.YELLOW};
-  border-radius: 37px;
+  border-radius: ${props => props.$borderRadius};
   color: ${COLORS.WHITE};
   font-size: 20px;
   font-weight: 700;
   font-family: ${FONTS.SECONDARY};
-  line-height: normal;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
   border: none;
   cursor: pointer;
   width: 100%;
-  height: 43px;
+  height: 100%;
 `;
