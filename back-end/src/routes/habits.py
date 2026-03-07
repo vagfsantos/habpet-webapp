@@ -39,7 +39,7 @@ def create_habit(logged_user):
 @get_user_from_token
 def get_habits(logged_user):
   habits_schema = HabitsSchema(many=True)
-  habits = db.session.query(Habits).filter_by(user_id=logged_user.id).all()
+  habits = Habits.query_deleted().filter_by(user_id=logged_user.id).all()
   
   return habits_schema.dump(habits), 200
 
@@ -51,7 +51,7 @@ def update_habit(logged_user, habit_slug):
   habits_schema = HabitsSchema()
   data = request.get_json()
   
-  habit = db.session.query(Habits).filter_by(slug=habit_slug, user_id=logged_user.id).first_or_404()
+  habit = db.session.query_active().filter_by(slug=habit_slug, user_id=logged_user.id).first_or_404()
   allowed_fields_to_be_updated=['name', 'frequency_type', 'frequency_count', 'duration_ms', 'expires_at']
   
   for key in data.keys():
@@ -65,3 +65,16 @@ def update_habit(logged_user, habit_slug):
   
   
   return habits_schema.dump(habit), 200
+
+
+@habits_blueprint.route('/<uuid:habit_slug>', methods=['DELETE'])
+@jwt_required()
+@get_user_from_token
+def delete_habit(logged_user, habit_slug):
+  habit_to_delete = db.session.query(Habits).filter_by(slug=habit_slug, user_id=logged_user.id).one_or_404()
+  
+  habit_to_delete.delete()
+  db.session.close()
+  
+  return "", 200
+  

@@ -51,15 +51,3 @@ def authenticate():
     return { "auth_key": encoded_jwt }
   else:
     return INVALID_CREDENTIALS_ERROR
-  
-  
-@login_blueprint.route('/validate_token', methods=['POST'])
-def validate_token():
-  token = request.headers.get('Authorization')
-  try:
-    jwt.decode(token, current_app.config["JWT_SECRET_KEY"], algorithms=["HS256"])
-    return { "token": "valid_token" }
-  except jwt.ExpiredSignatureError:
-    return { "message": "Token expired. Please log in again" }, 401
-  except jwt.InvalidTokenError:
-    return { "message": "Invalid token. Please log in again" }, 401
