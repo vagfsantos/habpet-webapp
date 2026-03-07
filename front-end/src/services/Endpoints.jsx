@@ -1,5 +1,6 @@
 const APIVERSION = '/api'
 
 export const ENDPOINTS = {
-  USERS: `${APIVERSION}/users`
+  USERS: `${APIVERSION}/users`,
+  AUTH: `${APIVERSION}/auth`,
 }
