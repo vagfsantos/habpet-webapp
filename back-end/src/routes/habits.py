@@ -1,23 +1,19 @@
 from flask import Blueprint, request
 from marshmallow import ValidationError
-from flask_jwt_extended import jwt_required, get_jwt_identity
-import uuid
+from flask_jwt_extended import jwt_required
 
-from src import Users
 from src.config.db_config import db
 from src.models.habits import HabitsSchema, Habits
+from src.decorators import get_user_from_token
 
 habits_blueprint = Blueprint('habits', __name__)
 
 @habits_blueprint.route('/', methods=['POST'])
 @jwt_required()
-def create_habit():
+@get_user_from_token
+def create_habit(logged_user):
   data = request.get_json()
-  
   habits_schema = HabitsSchema()
-
-  user_slug = get_jwt_identity()
-  logged_user = db.session.query(Users).filter_by(slug=uuid.UUID(user_slug)).first_or_404(description="User not found")
   
   try:
     habit = habits_schema.load(data)
@@ -40,11 +36,32 @@ def create_habit():
 
 @habits_blueprint.route('/', methods=['GET'])
 @jwt_required()
-def get_habits():
+@get_user_from_token
+def get_habits(logged_user):
   habits_schema = HabitsSchema(many=True)
-  user_slug = get_jwt_identity()
-  logged_user = db.session.query(Users).filter_by(slug=uuid.UUID(user_slug)).first_or_404(description="User not found")
-  
   habits = db.session.query(Habits).filter_by(user_id=logged_user.id).all()
   
   return habits_schema.dump(habits), 200
+
+
+@habits_blueprint.route('/<uuid:habit_slug>', methods=['PATCH'])
+@jwt_required()
+@get_user_from_token
+def update_habit(logged_user, habit_slug):
+  habits_schema = HabitsSchema()
+  data = request.get_json()
+  
+  habit = db.session.query(Habits).filter_by(slug=habit_slug, user_id=logged_user.id).first_or_404()
+  allowed_fields_to_be_updated=['name', 'frequency_type', 'frequency_count', 'duration_ms', 'expires_at']
+  
+  for key in data.keys():
+    if key not in allowed_fields_to_be_updated:
+      return { "messsage": "Only {} fields can be updated".format(allowed_fields_to_be_updated) }, 422
+      
+  try:
+    habit = habits_schema.load(data, partial=True, unknown='raise')
+  except ValidationError as err:
+    return err.messages, 422
+  
+  
+  return habits_schema.dump(habit), 200
