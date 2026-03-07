@@ -3,10 +3,12 @@
 import uuid
 from src.config.db_config import db
 from src.mixins.base_model import BaseModel
+from src.mixins.base_model import BaseModel
+from src.mixins.soft_delete import SoftDeleteMixin
 from marshmallow import Schema, fields, validate
 
 
-class Habits(BaseModel):
+class Habits(BaseModel, SoftDeleteMixin):
   __tablename__ = 'habits'
 
   user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
@@ -18,7 +20,6 @@ class Habits(BaseModel):
   frequency_count = db.Column(db.Integer, nullable=False)
   duration_ms = db.Column(db.Integer, nullable=True)
   expires_at = db.Column(db.DateTime, nullable=True)
-  
 
 class HabitsSchema(Schema):
   id = fields.Int()
