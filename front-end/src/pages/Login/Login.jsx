@@ -42,7 +42,7 @@ export const Login = () => {
 
     } catch (error) {
       console.log('ERROR', error)
-      toast.error('Error server. Please, try leter!')
+      toast.error('Server error. Please, try later!')
     }
   }
 
